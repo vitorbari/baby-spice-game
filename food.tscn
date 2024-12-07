@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2845euf7uh2n"]
+
+[ext_resource type="Script" path="res://food.gd" id="1_x0kp0"]
+[ext_resource type="Texture2D" uid="uid://x3rvthlq7dwq" path="res://art/file.png" id="1_xgncx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b4lb1"]
+radius = 29.0
+height = 90.0
+
+[node name="Food" type="RigidBody2D" groups=["foods"]]
+position = Vector2(3, 3)
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_x0kp0")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xgncx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, -3)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_b4lb1")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

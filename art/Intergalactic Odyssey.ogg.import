@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bd0j8lts3ma00"
+path="res://.godot/imported/Intergalactic Odyssey.ogg-3540c80fa739c86329421094ea54ccde.oggvorbisstr"
+
+[deps]
+
+source_file="res://art/Intergalactic Odyssey.ogg"
+dest_files=["res://.godot/imported/Intergalactic Odyssey.ogg-3540c80fa739c86329421094ea54ccde.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
