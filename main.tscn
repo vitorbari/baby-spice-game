@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://dpner8tojon0u"]
+[gd_scene load_steps=13 format=4 uid="uid://dpner8tojon0u"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_lg2va"]
 [ext_resource type="Texture2D" uid="uid://bjoqglk25j5in" path="res://art/nebula-abstract.jpg" id="1_nkv05"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://b2845euf7uh2n" path="res://food.tscn" id="2_estft"]
 [ext_resource type="PackedScene" uid="uid://bc1i67hbm3yk2" path="res://hud.tscn" id="5_2dnsy"]
 [ext_resource type="AudioStream" uid="uid://ds3dsr881e5sw" path="res://art/meow-2.ogg" id="6_25n68"]
+[ext_resource type="PackedScene" uid="uid://ci1bg0od4xjv7" path="res://menu.tscn" id="6_cl36w"]
+[ext_resource type="AudioStream" uid="uid://bwmgot01s635h" path="res://art/SE-Explosion3-B.ogg" id="7_ddfsn"]
+[ext_resource type="AudioStream" uid="uid://d2hitabai4mbc" path="res://art/Mall.ogg" id="7_kkfyt"]
 
 [sub_resource type="Curve2D" id="Curve2D_ixsjh"]
 _data = {
@@ -58,8 +61,14 @@ one_shot = true
 wait_time = 30.0
 one_shot = true
 
+[node name="IncreasingTimer" type="Timer" parent="."]
+wait_time = 42.142
+
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(240, 450)
+
+[node name="DropStartPostition" type="Marker2D" parent="."]
+position = Vector2(240, -64)
 
 [node name="FoodPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_ixsjh")
@@ -67,16 +76,30 @@ curve = SubResource("Curve2D_ixsjh")
 [node name="FoodSpawnLocation" type="PathFollow2D" parent="FoodPath"]
 
 [node name="HUD" parent="." instance=ExtResource("5_2dnsy")]
+visible = false
+
+[node name="Menu" parent="." instance=ExtResource("6_cl36w")]
+visible = false
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamOggVorbis_d8xio")
+
+[node name="ZenMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_kkfyt")
 
 [node name="MeowSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_25n68")
 volume_db = 20.0
 
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ddfsn")
+volume_db = 17.358
+
 [connection signal="ate" from="Cat" to="." method="_on_cat_ate"]
 [connection signal="timeout" from="FoodTimer" to="." method="_on_food_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="MainTimer" to="." method="_on_main_timer_timeout"]
-[connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="menu_pressed" from="HUD" to="." method="_on_hud_menu_pressed"]
+[connection signal="normal_mode_pressed" from="Menu" to="." method="_on_menu_normal_mode_pressed"]
+[connection signal="turbo_mode_pressed" from="Menu" to="." method="_on_menu_turbo_mode_pressed"]
+[connection signal="zen_mode_pressed" from="Menu" to="." method="_on_menu_zen_mode_pressed"]

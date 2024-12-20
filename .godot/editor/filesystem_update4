@@ -1,8 +1,9 @@
-res://cat.tscn
-res://cat.gd
 res://main.tscn
+res://cat.gd
+res://cat.tscn
 res://food.tscn
-res://food.gd
-res://main.gd
 res://hud.tscn
+res://main.gd
+res://menu.tscn
+res://menu.gd
 res://hud.gd

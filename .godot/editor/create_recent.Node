@@ -1,9 +1,10 @@
+CollisionPolygon2D
+CanvasLayer
 AudioStreamPlayer
 Sprite2D
 Timer
 Button
 Label
-CanvasLayer
 PathFollow2D
 Path2D
 Marker2D

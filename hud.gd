@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 # Notifies `Main` node that the button has been pressed
-signal start_game
+signal menu_pressed
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,12 +13,14 @@ func _process(delta: float) -> void:
 	pass
 
 func hide_live_score():
+	$MenuButton.hide()
 	$Score.hide()
 	$ScoreLabel.hide()
 	$Timer.hide()
 	$TimerLabel.hide()
 
 func show_live_score():
+	$MenuButton.show()
 	$Score.show()
 	$ScoreLabel.show()
 	$Timer.show()
@@ -29,16 +31,14 @@ func show_message(text):
 	$Message.show()
 	$MessageTimer.start()
 
-func show_game_over(score):	
+func show_final_score(score):	
+	hide_live_score()
 	show_message(str(score) + " latinhas!")
 	# Wait until the MessageTimer has counted down.
 	await $MessageTimer.timeout
 
-	$Message.text = "Tente Novamente"
-	$Message.show()
 	# Make a one-shot timer and wait for it to finish.
-	await get_tree().create_timer(1.0).timeout
-	$StartButton.show()
+	#await get_tree().create_timer(1.0).timeout
 
 func update_score(score):
 	$Score.text = str(score)
@@ -46,11 +46,8 @@ func update_score(score):
 func update_time(time):
 	$Timer.text = str(time)
 
-
-func _on_start_button_pressed() -> void:
-	$StartButton.hide()
-	start_game.emit()
-
-
 func _on_message_timer_timeout() -> void:
 	$Message.hide()
+
+func _on_menu_button_pressed() -> void:
+	menu_pressed.emit()

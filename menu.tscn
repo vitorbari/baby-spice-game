@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://ci1bg0od4xjv7"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_p23oa"]
+[ext_resource type="FontFile" uid="uid://chi82p2s47xr2" path="res://fonts/Xolonium-Regular.ttf" id="2_6t007"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_jr7ew"]
+action = &"start_game"
+
+[sub_resource type="Shortcut" id="Shortcut_6rf5p"]
+events = [SubResource("InputEventAction_jr7ew")]
+
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("1_p23oa")
+
+[node name="NormalModeButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -224.0
+offset_top = -520.0
+offset_right = 226.0
+offset_bottom = -428.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_6t007")
+theme_override_font_sizes/font_size = 58
+shortcut = SubResource("Shortcut_6rf5p")
+text = "Normal Mode"
+
+[node name="ZenModeButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -224.0
+offset_top = -400.0
+offset_right = 219.0
+offset_bottom = -308.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_6t007")
+theme_override_font_sizes/font_size = 58
+shortcut = SubResource("Shortcut_6rf5p")
+text = "Zen Mode"
+
+[node name="TurboMode" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -224.0
+offset_top = -280.0
+offset_right = 219.0
+offset_bottom = -188.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_6t007")
+theme_override_font_sizes/font_size = 64
+shortcut = SubResource("Shortcut_6rf5p")
+text = "Turbo Mode"
+
+[connection signal="pressed" from="NormalModeButton" to="." method="_on_normal_mode_button_pressed"]
+[connection signal="pressed" from="ZenModeButton" to="." method="_on_zen_mode_button_pressed"]
+[connection signal="pressed" from="TurboMode" to="." method="_on_turbo_mode_pressed"]

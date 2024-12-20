@@ -16,46 +16,49 @@ script = ExtResource("1_urgqv")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -72.0
-offset_right = -27.0
-offset_bottom = 78.0
+offset_left = 97.0
+offset_top = 48.0
+offset_right = 238.0
+offset_bottom = 103.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_0qfos")
-theme_override_font_sizes/font_size = 64
-text = "0"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 45
+text = "000"
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Timer" type="Label" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 168.0
-offset_right = 213.0
-offset_bottom = 78.0
+offset_left = 96.0
+offset_right = 237.0
+offset_bottom = 55.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_0qfos")
-theme_override_font_sizes/font_size = 64
-text = "0"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 45
+text = "00.00"
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="."]
-offset_left = 5.0
-offset_right = 135.0
-offset_bottom = 78.0
+offset_left = 248.0
+offset_top = 56.0
+offset_right = 337.0
+offset_bottom = 96.0
 theme_override_fonts/font = ExtResource("1_0qfos")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 22
 text = "Pontos:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TimerLabel" type="Label" parent="."]
-offset_left = 240.0
-offset_right = 370.0
-offset_bottom = 78.0
+offset_left = 248.0
+offset_top = 8.0
+offset_right = 334.0
+offset_bottom = 48.0
 theme_override_fonts/font = ExtResource("1_0qfos")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 22
 text = "Tempo:"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -79,26 +82,26 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="StartButton" type="Button" parent="."]
+[node name="MenuButton" type="Button" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -221.5
-offset_top = -97.0
-offset_right = 221.5
-offset_bottom = -5.0
+offset_left = -232.0
+offset_top = -712.0
+offset_right = -130.0
+offset_bottom = -647.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_0qfos")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 23
 shortcut = SubResource("Shortcut_ucpmj")
-text = "Quer mamã?"
+text = "Menu"
 
 [node name="MessageTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
