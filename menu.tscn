@@ -27,7 +27,7 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_6t007")
 theme_override_font_sizes/font_size = 58
 shortcut = SubResource("Shortcut_6rf5p")
-text = "Normal Mode"
+text = "Modo Normal"
 
 [node name="ZenModeButton" type="Button" parent="."]
 anchors_preset = 7
@@ -44,7 +44,7 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_6t007")
 theme_override_font_sizes/font_size = 58
 shortcut = SubResource("Shortcut_6rf5p")
-text = "Zen Mode"
+text = "Modo Zen"
 
 [node name="TurboMode" type="Button" parent="."]
 anchors_preset = 7
@@ -61,7 +61,7 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_6t007")
 theme_override_font_sizes/font_size = 64
 shortcut = SubResource("Shortcut_6rf5p")
-text = "Turbo Mode"
+text = "Modo Turbo"
 
 [connection signal="pressed" from="NormalModeButton" to="." method="_on_normal_mode_button_pressed"]
 [connection signal="pressed" from="ZenModeButton" to="." method="_on_zen_mode_button_pressed"]

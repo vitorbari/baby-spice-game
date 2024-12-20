@@ -9,6 +9,9 @@ enum Modes {MODE_NORMAL, MODE_ZEN, MODE_TURBO}
 # Elapsed time for zenmode
 var time_start = 0
 
+var stages = [[10, 25], [15, 25], [18, 20], [20, 20], [25, 20]]
+var current_stage = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	show_menu()
@@ -24,7 +27,10 @@ func _process(delta: float) -> void:
 			$HUD.update_time("%1.2f" % $MainTimer.time_left)
 		_:
 			$HUD.update_time(int($MainTimer.time_left))
-			
+
+	if Input.is_action_pressed("exit_game"):
+		game_over()
+
 func show_menu() -> void:
 	$Menu.show()
 
@@ -40,10 +46,13 @@ func stop_game() -> void:
 	$Music.stop()
 	
 func show_final_score() -> void:
-	$HUD.hide_live_score()
 	await $HUD.show_final_score(score)
+	
+func show_winning_message() -> void:
+	await $HUD.show_winning_message()
 
-func game_over() -> void:	
+func game_over() -> void:
+	current_stage = 0
 	stop_game()
 	await show_final_score()
 	$HUD.hide()
@@ -59,18 +68,24 @@ func prepare_before_game_start():
 	$FoodTimer.wait_time = 0.5
 	$MeowSound.pitch_scale = 1.0
 	$MeowSound.volume_db = 20
+	
+	$MainTimer.wait_time = 30
 
 func start_normal_mode():
 	prepare_before_game_start()
 
 	GameMode = Modes.MODE_NORMAL
 
+	var goal = get_goal_current_stage()
+	var time = get_time_from_current_stage()
+
 	$StartTimer.start()
+	$MainTimer.wait_time = time
 	$MainTimer.start()
 
 	$HUD.show_live_score()
-	$HUD.update_score(score)
-	$HUD.show_message("Preparar")
+	$HUD.update_score("%d/%d" % [score, goal])
+	$HUD.show_message("Nível %d:\n%d latinhas em\n%d segundos" % [current_stage + 1, goal, time])
 
 	$Music.play()
 
@@ -144,16 +159,23 @@ func _on_start_timer_timeout() -> void:
 	$FoodTimer.start()
 
 func _on_cat_ate() -> void:	
-	score += 1	
+	score += 1
 
 	match GameMode:
 		Modes.MODE_TURBO:
 			$Explosion.play()
 		_:
 			$MeowSound.play()
-	
-	$HUD.update_score(score)
-	
+
+	match GameMode:	
+		Modes.MODE_NORMAL:
+			$HUD.update_score("%d/%d" % [score, get_goal_current_stage()])
+		_:
+			$HUD.update_score(score)
+
+	if score >= get_goal_current_stage():
+		goal_completed()
+
 func _on_main_timer_timeout() -> void:
 	game_over()
 
@@ -171,3 +193,26 @@ func _on_hud_menu_pressed() -> void:
 	await show_final_score()
 	$HUD.hide()
 	show_menu()
+
+func get_goal_current_stage() -> int:
+	var s = stages[current_stage]
+	return s[0]
+
+func get_time_from_current_stage() -> int:
+	var s = stages[current_stage]
+	return s[1]
+
+func goal_completed() -> void:
+	stop_game()
+	await show_final_score()
+	
+	if current_stage == len(stages)-1:
+		await show_winning_message()
+		$HUD.hide()
+		show_menu()
+		return
+
+	$HUD.hide()
+	# continue to next stage
+	current_stage = current_stage + 1
+	start_normal_mode()

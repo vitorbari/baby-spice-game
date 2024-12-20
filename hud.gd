@@ -40,6 +40,12 @@ func show_final_score(score):
 	# Make a one-shot timer and wait for it to finish.
 	#await get_tree().create_timer(1.0).timeout
 
+func show_winning_message():	
+	hide_live_score()
+	show_message("Parabéns!\nO gato comeu.")
+	# Wait until the MessageTimer has counted down.
+	await $MessageTimer.timeout
+
 func update_score(score):
 	$Score.text = str(score)
 	
